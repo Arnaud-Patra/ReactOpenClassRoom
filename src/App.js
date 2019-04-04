@@ -1,28 +1,38 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import './App.css'
+import Card from './Card'
+import GuessCount from './GuessCount'
+import * as ReactDOM from "react-dom";
+
+
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+
+    render() {
+
+        const won = new Date().getSeconds() % 2 === 0;
+
+        return (
+            <div className="memory">
+                <GuessCount guesses={0} />
+                <Card card="😀" feedback="hidden"  onClick={App.handleCardClick} />
+                <Card card="🎉" feedback="justMatched" onClick={App.handleCardClick}/>
+                <Card card="💖" feedback="justMismatched" onClick={App.handleCardClick}/>
+                <Card card="🎩" feedback="visible" onClick={App.handleCardClick}/>
+                <Card card="🐶" feedback="hidden" onClick={App.handleCardClick}/>
+                <Card card="🐱" feedback="justMatched" onClick={App.handleCardClick}/>
+
+                {won && (<p>Gagné !</p>)}
+            </div>
+
+
+        )
+    }
+
+    static handleCardClick(card) {
+        console.log(card, 'clicked')
+    }
+
 }
 
-export default App;
+export default App
